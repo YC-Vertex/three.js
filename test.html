@@ -21,7 +21,7 @@
       document.body.appendChild(renderer.domElement);
 
       var geometry = new THREE.BoxGeometry(2, 2, 2);
-      var texture = new THREE.TextureLoader().load("textures/troll.jpg");
+      var texture = new THREE.TextureLoader().load("textures/golden.jpg");
       var material = new THREE.MeshBasicMaterial({color: 0xffffff, map: texture})
       var cube = new THREE.Mesh(geometry, material);
       scene.add(cube);
@@ -32,7 +32,7 @@
       m.transparent = true;
       m.opacity = 0.8;
       var c = new THREE.Mesh(g, m);
-      //scene.add(c);
+      scene.add(c);
 
       c.rotation.x += 1;
       c.rotation.y += 1;
