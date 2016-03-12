@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Hello World</title>
+    <style>
+      body { margin: 0; }
+      canvas { width: 100%; height: 100%; }
+    </style>
+  </head>
+
+  <body>
+    <script src="js/three.min.js"></script>
+    <script>
+      var scene = new THREE.Scene();
+      var camera = new THREE.PerspectiveCamera(
+          75, window.innerWidth / window.innerHeight, 0.1, 1000);
+
+      var renderer = new THREE.WebGLRenderer();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      renderer.setClearColor(0xaaaaaa);
+      document.body.appendChild(renderer.domElement);
+
+      var geometry = new THREE.BoxGeometry(2, 2, 2);
+      var texture = new THREE.TextureLoader().load("textures/troll.jpg");
+      var material = new THREE.MeshBasicMaterial({color: 0xffffff, map: texture})
+      var cube = new THREE.Mesh(geometry, material);
+      scene.add(cube);
+
+      var g = new THREE.BoxGeometry(2, 2, 2);
+      var t = new THREE.TextureLoader().load("textures/silver.jpg");
+      var m = new THREE.MeshBasicMaterial({color: 0xffffff, map: t});
+      m.transparent = true;
+      m.opacity = 0.8;
+      var c = new THREE.Mesh(g, m);
+      //scene.add(c);
+
+      c.rotation.x += 1;
+      c.rotation.y += 1;
+
+      camera.position.z = 4;
+
+      var render = function() {
+        requestAnimationFrame(render);
+
+        cube.rotation.x += 0.02;
+        cube.rotation.y += 0.02;
+        
+        c.rotation.x += 0.02;
+        c.rotation.y += 0.02;
+
+        renderer.render(scene, camera);
+      }
+
+      render();
+    </script>
+  </body>
+</html>
