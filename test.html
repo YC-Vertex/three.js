@@ -11,44 +11,38 @@
   <body>
     <script src="js/three.min.js"></script>
     <script>
+			var width = window.innerWidth;
+			var height = window.innerHeight;
+
       var scene = new THREE.Scene();
-      var camera = new THREE.PerspectiveCamera(
-          75, window.innerWidth / window.innerHeight, 0.1, 1000);
+      var camera = new THREE.PerspectiveCamera(75, width * 2 / height, 0.1, 1000);
 
-      var renderer = new THREE.WebGLRenderer();
-      renderer.setSize(window.innerWidth, window.innerHeight);
-      renderer.setClearColor(0xaaaaaa);
-      document.body.appendChild(renderer.domElement);
+      var rendererT = new THREE.WebGLRenderer();
+      rendererT.setSize(width, height / 2);
+      rendererT.setClearColor(0xaaaaaa);
+      document.body.appendChild(rendererT.domElement);
 
-      var geometry = new THREE.BoxGeometry(2, 2, 2);
-      var texture = new THREE.TextureLoader().load("textures/golden.jpg");
+			var rendererB = new THREE.WebGLRenderer();
+			rendererB.setSize(width, height / 2);
+			rendererB.setClearColor(0xaaaaaa);
+			document.body.appendChild(rendererB.domElement);
+
+      var geometry = new THREE.BoxGeometry(1, 1, 1);
+      var texture = new THREE.TextureLoader().load("textures/troll.jpg");
       var material = new THREE.MeshBasicMaterial({color: 0xffffff, map: texture})
       var cube = new THREE.Mesh(geometry, material);
       scene.add(cube);
 
-      var g = new THREE.BoxGeometry(2, 2, 2);
-      var t = new THREE.TextureLoader().load("textures/silver.jpg");
-      var m = new THREE.MeshBasicMaterial({color: 0xffffff, map: t});
-      m.transparent = true;
-      m.opacity = 0.8;
-      var c = new THREE.Mesh(g, m);
-      scene.add(c);
-
-      c.rotation.x += 1;
-      c.rotation.y += 1;
-
-      camera.position.z = 4;
+      camera.position.z = 3;
 
       var render = function() {
         requestAnimationFrame(render);
 
-        cube.rotation.x += 0.02;
-        cube.rotation.y += 0.02;
-        
-        c.rotation.x += 0.02;
-        c.rotation.y += 0.02;
+        cube.rotation.x += 0.05;
+        cube.rotation.y += 0.05;
 
-        renderer.render(scene, camera);
+        rendererT.render(scene, camera);
+				rendererB.render(scene, camera);
       }
 
       render();
