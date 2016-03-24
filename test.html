@@ -15,12 +15,13 @@
 			var height = window.innerHeight;
 
       var scene = new THREE.Scene();
-      var camera = new THREE.PerspectiveCamera(75, width * 2 / height, 0.1, 1000);
+      var cameraA = new THREE.PerspectiveCamera(50, width * 2 / height, 0.1, 1000);
+      var cameraB = new THREE.PerspectiveCamera(50, width * 2 / height, 0.1, 1000);
 
-      var rendererT = new THREE.WebGLRenderer();
-      rendererT.setSize(width, height / 2);
-      rendererT.setClearColor(0xaaaaaa);
-      document.body.appendChild(rendererT.domElement);
+      var rendererA = new THREE.WebGLRenderer();
+      rendererA.setSize(width, height / 2);
+      rendererA.setClearColor(0xaaaaaa);
+      document.body.appendChild(rendererA.domElement);
 
 			var rendererB = new THREE.WebGLRenderer();
 			rendererB.setSize(width, height / 2);
@@ -33,7 +34,10 @@
       var cube = new THREE.Mesh(geometry, material);
       scene.add(cube);
 
-      camera.position.z = 3;
+      cameraA.position.z = 3;
+      cameraB.position.z = 2;
+			cameraB.position.x = 1;
+			cameraB.rotation.y = 1;
 
       var render = function() {
         requestAnimationFrame(render);
@@ -41,8 +45,8 @@
         cube.rotation.x += 0.05;
         cube.rotation.y += 0.05;
 
-        rendererT.render(scene, camera);
-				rendererB.render(scene, camera);
+        rendererA.render(scene, cameraA);
+				rendererB.render(scene, cameraB);
       }
 
       render();
